@@ -1,15 +1,16 @@
 'use client'
 
-import { Card, Badge, Button, Panel, Divider } from '@/design-system/components'
+import {
+  Card,
+  Badge,
+  Button,
+  Panel,
+  Divider,
+  InteractiveMetalButton,
+} from '@/design-system/components'
 import { CreditCard, Zap, Globe, Smartphone, ShieldCheck, Gift, Plane, Percent } from 'lucide-react'
 import { CreditCard3D } from '../CreditCard3D'
-
-const metrics = [
-  { label: 'Accepted Locations', value: '100M+', icon: Globe },
-  { label: 'Max Cashback', value: '5%', icon: Percent, highlight: true },
-  { label: 'Mobile Pay', value: 'Supported', icon: Smartphone },
-  { label: 'Card Types', value: '3 Tiers', icon: CreditCard },
-]
+import { cn } from '@/lib/utils'
 
 const tiers = [
   {
@@ -60,7 +61,7 @@ const features = [
 
 export function CashSection() {
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-10 px-6 py-12">
+    <div className="mx-auto flex w-full max-w-6xl cursor-default flex-col items-center gap-10 px-6 py-12">
       {/* Header */}
       <div className="max-w-2xl space-y-4 text-center">
         <Badge variant="metal" className="gap-2">
@@ -76,28 +77,17 @@ export function CashSection() {
         </p>
       </div>
 
-      {/* Metrics */}
-      <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-4">
-        {metrics.map((metric) => (
-          <Card
-            key={metric.label}
-            variant={metric.highlight ? 'metal' : 'primary'}
-            padding="sm"
-            className="text-center"
-          >
-            <metric.icon className="mx-auto mb-1 h-4 w-4 text-[var(--color-accent-gold)]" />
-            <span className="text-xs font-medium tracking-wider text-[var(--color-text-tertiary)] uppercase">
-              {metric.label}
-            </span>
-            <div className="mt-1">
-              <span
-                className={`text-2xl font-bold ${metric.highlight ? 'text-[var(--color-accent-gold)]' : 'text-[var(--color-text-primary)]'}`}
-              >
-                {metric.value}
-              </span>
-            </div>
-          </Card>
-        ))}
+      {/* Mobile Pay */}
+      <div className="flex w-full items-center justify-center gap-6 text-[var(--color-text-tertiary)]">
+        <div className="flex items-center gap-2">
+          <Smartphone className="h-5 w-5" />
+          <span className="text-sm font-medium tracking-wider uppercase">Apple Pay</span>
+        </div>
+        <div className="h-4 w-px bg-[var(--color-border)]" />
+        <div className="flex items-center gap-2">
+          <Smartphone className="h-5 w-5" />
+          <span className="text-sm font-medium tracking-wider uppercase">Google Pay</span>
+        </div>
       </div>
 
       <Divider variant="metal" label="Card Tiers" className="w-full" />
@@ -105,7 +95,10 @@ export function CashSection() {
       {/* Tiers */}
       <div className="mt-8 grid w-full grid-cols-1 items-start gap-8 lg:grid-cols-3">
         {tiers.map((tier) => (
-          <div key={tier.name} className="group/tier flex w-full flex-col gap-8">
+          <div
+            key={tier.name}
+            className="group flex w-full scale-100 cursor-pointer flex-col gap-8 pt-10 transition-all duration-500 ease-out hover:scale-[1.05]"
+          >
             {/* 3D Card Visual */}
             <div className="flex h-[250px] w-full items-center justify-center px-6 pt-12 pb-8">
               <CreditCard3D tier={tier.name} />
@@ -117,7 +110,7 @@ export function CashSection() {
               padding="md"
               className="flex h-full w-full flex-col gap-4"
             >
-              <div className="text-center">
+              <div className="pt-12 text-center">
                 <h3 className="text-lg font-bold text-[var(--color-text-primary)]">{tier.name}</h3>
                 <div className="mt-2">
                   <span className="text-3xl font-bold text-[var(--color-accent-gold)]">
@@ -142,13 +135,9 @@ export function CashSection() {
                 ))}
               </ul>
 
-              <Button
-                variant={tier.highlighted ? 'metal' : 'secondary'}
-                size="sm"
-                className="mt-auto w-full"
-              >
+              <InteractiveMetalButton variant="secondary" size="sm" className="mt-auto w-full">
                 {tier.fee === 'Invite Only' ? 'Request Invite' : 'Get Card'}
-              </Button>
+              </InteractiveMetalButton>
             </Card>
           </div>
         ))}

@@ -18,3 +18,6 @@ export type { BadgeProps } from './Badge'
 
 export { Divider } from './Divider'
 export type { DividerProps } from './Divider'
+
+export { InteractiveMetalButton } from './InteractiveMetalButton'
+export type { InteractiveMetalButtonProps } from './InteractiveMetalButton'

@@ -116,7 +116,7 @@ export function CreditCard3D({
         (Placed on the outside so it always operates in screen space, unaffected by the card's twist)
       */}
       <div
-        className="absolute inset-0 h-full w-full transition-transform duration-200 ease-out [--tilt:10deg] group-hover:[--tilt:40deg]"
+        className="absolute inset-0 h-full w-full transition-transform duration-200 ease-out [--tilt:20deg] group-hover:[--tilt:40deg] group-hover/tier:[--tilt:40deg]"
         style={{
           transform: `rotateX(calc(${rotate.x} * var(--tilt))) rotateY(calc(${rotate.y} * var(--tilt)))`,
           transformStyle: 'preserve-3d',
@@ -126,9 +126,9 @@ export function CreditCard3D({
           Shadow Layer 
           Moved completely outside of the preserve-3d card wrapper to prevent blur popping. 
         */}
-        <div className="absolute inset-0 h-full w-full [transform:rotateX(var(--idle-rx))_rotateZ(var(--idle-rz))_rotateY(var(--idle-ry))_scale(var(--idle-scale))] transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[transform:rotateX(0deg)_rotateZ(0deg)_rotateY(0deg)_scale(var(--hover-scale))]">
+        <div className="absolute inset-0 h-full w-full [transform:rotateX(var(--idle-rx))_rotateZ(var(--idle-rz))_rotateY(var(--idle-ry))_scale(var(--idle-scale))] transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[transform:rotateX(0deg)_rotateZ(0deg)_rotateY(0deg)_scale(var(--hover-scale))] group-hover/tier:[transform:rotateX(0deg)_rotateZ(0deg)_rotateY(0deg)_scale(var(--hover-scale))]">
           <div
-            className="absolute inset-0 rounded-2xl bg-black/30 blur-xl transition-all duration-300 group-hover:blur-2xl"
+            className="absolute inset-0 rounded-2xl bg-black/30 blur-xl transition-all duration-300 group-hover:blur-2xl group-hover/tier:blur-2xl"
             style={{
               transform: 'translateY(10px) translateZ(-40px)', // push it down and back relative to the view
             }}
@@ -140,7 +140,7 @@ export function CreditCard3D({
           Idle state = spun. Hover state = untwists to face the user and expands 20% 
         */}
         <div
-          className="absolute inset-0 h-full w-full [transform:rotateX(var(--idle-rx))_rotateZ(var(--idle-rz))_rotateY(var(--idle-ry))_scale(var(--idle-scale))] transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[transform:rotateX(0deg)_rotateZ(0deg)_rotateY(0deg)_scale(var(--hover-scale))]"
+          className="absolute inset-0 h-full w-full [transform:rotateX(var(--idle-rx))_rotateZ(var(--idle-rz))_rotateY(var(--idle-ry))_scale(var(--idle-scale))] transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[transform:rotateX(0deg)_rotateZ(0deg)_rotateY(0deg)_scale(var(--hover-scale))] group-hover/tier:[transform:rotateX(0deg)_rotateZ(0deg)_rotateY(0deg)_scale(var(--hover-scale))]"
           style={{ transformStyle: 'preserve-3d' }}
         >
           {/* Box (Main Card) */}
@@ -208,7 +208,7 @@ export function CreditCard3D({
 
             {/* Shine effect that moves with mouse */}
             <div
-              className="pointer-events-none absolute top-0 left-[var(--idle-shine)] z-20 h-[200%] w-[100%] [transform:skewX(-40deg)] bg-white/40 [box-shadow:0_0_60px_40px_rgba(255,255,255,0.4)] transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:left-[calc(var(--mouse-y)*-300%)] md:bg-white/30 md:[box-shadow:0_0_60px_40px_rgba(255,255,255,0.3)]"
+              className="pointer-events-none absolute top-0 left-[var(--idle-shine)] z-20 h-[200%] w-[100%] [transform:skewX(-40deg)] bg-white/40 [box-shadow:0_0_60px_40px_rgba(255,255,255,0.4)] transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:left-[calc(var(--mouse-y)*-300%)] group-hover/tier:left-[calc(var(--mouse-y)*-300%)] md:bg-white/30 md:[box-shadow:0_0_60px_40px_rgba(255,255,255,0.3)]"
               style={{
                 opacity: tier === 'Black' ? 0.3 : 1,
               }}
