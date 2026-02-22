@@ -2,6 +2,7 @@
 
 import { Card, Badge, Button, Panel, Divider } from '@/design-system/components'
 import { CreditCard, Zap, Globe, Smartphone, ShieldCheck, Gift, Plane, Percent } from 'lucide-react'
+import { CreditCard3D } from '../CreditCard3D'
 
 const metrics = [
   { label: 'Accepted Locations', value: '100M+', icon: Globe },
@@ -12,21 +13,21 @@ const metrics = [
 
 const tiers = [
   {
-    name: 'Standard',
+    name: 'Standard' as const,
     cashback: '1%',
     fee: 'Free',
     perks: ['Visa acceptance worldwide', 'Apple Pay & Google Pay', 'Real-time notifications'],
     highlighted: false,
   },
   {
-    name: 'Premium',
+    name: 'Premium' as const,
     cashback: '3%',
     fee: '$9.99/mo',
     perks: ['Metal card', 'Airport lounge access', 'Concierge service', 'Purchase protection'],
     highlighted: true,
   },
   {
-    name: 'Black',
+    name: 'Black' as const,
     cashback: '5%',
     fee: 'Invite Only',
     perks: ['All Premium perks', 'Priority support', 'Exclusive events', 'Custom limits'],
@@ -100,42 +101,49 @@ export function CashSection() {
       <Divider variant="metal" label="Card Tiers" className="w-full" />
 
       {/* Tiers */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full items-start mt-8">
         {tiers.map((tier) => (
-          <Card
-            key={tier.name}
-            variant={tier.highlighted ? 'metal' : 'primary'}
-            padding="md"
-            className="flex flex-col gap-4"
-          >
-            <div className="text-center">
-              <h3 className="text-lg font-bold text-[var(--color-text-primary)]">{tier.name}</h3>
-              <div className="mt-2">
-                <span className="text-3xl font-bold text-[var(--color-accent-gold)]">{tier.cashback}</span>
-                <span className="text-sm text-[var(--color-text-muted)] ml-1">cashback</span>
-              </div>
-              <div className="text-xs text-[var(--color-text-tertiary)] mt-1">{tier.fee}</div>
+          <div key={tier.name} className="flex flex-col gap-8 w-full group/tier">
+            {/* 3D Card Visual */}
+            <div className="w-full px-6 pt-12 pb-8 h-[250px] flex items-center justify-center">
+              <CreditCard3D tier={tier.name} />
             </div>
 
-            <Divider variant="ghost" />
-
-            <ul className="space-y-2 flex-1">
-              {tier.perks.map((perk, i) => (
-                <li key={i} className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)]">
-                  <span className="h-1 w-1 rounded-full bg-[var(--color-accent-gold)] flex-shrink-0" />
-                  {perk}
-                </li>
-              ))}
-            </ul>
-
-            <Button
-              variant={tier.highlighted ? 'metal' : 'secondary'}
-              size="sm"
-              className="w-full"
+            {/* Tier Details Card */}
+            <Card
+              variant={tier.highlighted ? 'metal' : 'primary'}
+              padding="md"
+              className="flex flex-col gap-4 h-full w-full"
             >
-              {tier.fee === 'Invite Only' ? 'Request Invite' : 'Get Card'}
-            </Button>
-          </Card>
+              <div className="text-center">
+                <h3 className="text-lg font-bold text-[var(--color-text-primary)]">{tier.name}</h3>
+                <div className="mt-2">
+                  <span className="text-3xl font-bold text-[var(--color-accent-gold)]">{tier.cashback}</span>
+                  <span className="text-sm text-[var(--color-text-muted)] ml-1">cashback</span>
+                </div>
+                <div className="text-xs text-[var(--color-text-tertiary)] mt-1">{tier.fee}</div>
+              </div>
+
+              <Divider variant="ghost" />
+
+              <ul className="space-y-2 flex-1">
+                {tier.perks.map((perk, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)]">
+                    <span className="h-1 w-1 rounded-full bg-[var(--color-accent-gold)] flex-shrink-0" />
+                    {perk}
+                  </li>
+                ))}
+              </ul>
+
+              <Button
+                variant={tier.highlighted ? 'metal' : 'secondary'}
+                size="sm"
+                className="w-full mt-auto"
+              >
+                {tier.fee === 'Invite Only' ? 'Request Invite' : 'Get Card'}
+              </Button>
+            </Card>
+          </div>
         ))}
       </div>
 

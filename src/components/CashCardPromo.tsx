@@ -2,6 +2,7 @@
 
 import { Button, Panel, Divider } from '@/design-system/components'
 import { CreditCard, Zap } from 'lucide-react'
+import { CreditCard3D } from './CreditCard3D'
 
 export function CashCardPromo() {
   return (
@@ -45,51 +46,11 @@ export function CashCardPromo() {
         </div>
 
         {/* Card Mockup */}
-        <div className="relative group">
-          <Panel variant="metal" className="p-0 overflow-hidden">
-            <div className="relative w-full aspect-[1.586] p-8 flex flex-col justify-between">
-              {/* Surface highlight */}
-              <div className="absolute inset-0 light-top-diffuse pointer-events-none" />
-
-              <div className="flex justify-between items-start relative z-10">
-                <div className="text-xl font-bold text-[var(--color-accent-gold)]">
-                  ether.fi
-                </div>
-                <CreditCard className="h-7 w-7 text-[var(--color-text-muted)]" />
-              </div>
-
-              <div className="space-y-4 relative z-10">
-                {/* Chip */}
-                <div className="flex gap-2">
-                  <div className="h-7 w-9 rounded-md metal-accent opacity-70" />
-                </div>
-
-                {/* Number */}
-                <div className="text-base tracking-[0.25em] text-[var(--color-text-tertiary)] font-mono">
-                  •••• •••• •••• 4829
-                </div>
-
-                {/* Details */}
-                <div className="flex justify-between items-end">
-                  <div className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider">
-                    Card Holder
-                    <div className="text-sm text-[var(--color-text-primary)] mt-0.5 font-medium tracking-normal normal-case">
-                      Card Holder
-                    </div>
-                  </div>
-                  <div className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider text-right">
-                    Expires
-                    <div className="text-sm text-[var(--color-text-primary)] mt-0.5 font-medium tracking-normal">
-                      12/28
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Panel>
+        <div className="relative group w-full max-w-[400px] mx-auto">
+          <CreditCard3D />
 
           {/* Subtle ambient glow */}
-          <div className="absolute -inset-6 bg-[var(--color-accent-gold-glow)] rounded-[var(--radius-xl)] blur-2xl -z-10 opacity-50 group-hover:opacity-80 transition-opacity duration-[var(--duration-slow)]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#c7ec4c] rounded-[var(--radius-xl)] blur-[80px] -z-10 opacity-30 group-hover:opacity-50 transition-opacity duration-[800ms] pointer-events-none" />
         </div>
       </div>
     </section>
