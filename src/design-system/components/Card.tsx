@@ -9,14 +9,8 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant = 'primary', padding = 'md', children, ...props }, ref) => {
     const variants: Record<string, string> = {
-      primary: [
-        'paper-elevated texture-grain',
-        'rounded-[var(--radius-lg)]',
-      ].join(' '),
-      secondary: [
-        'paper-base',
-        'rounded-[var(--radius-lg)]',
-      ].join(' '),
+      primary: ['paper-elevated texture-grain', 'rounded-[var(--radius-lg)]'].join(' '),
+      secondary: ['paper-base', 'rounded-[var(--radius-lg)]'].join(' '),
       ghost: [
         'bg-transparent border border-[var(--color-border-subtle)]',
         'rounded-[var(--radius-lg)]',
@@ -35,15 +29,11 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     }
 
     return (
-      <div
-        ref={ref}
-        className={cn(variants[variant], paddings[padding], className)}
-        {...props}
-      >
+      <div ref={ref} className={cn(variants[variant], paddings[padding], className)} {...props}>
         {children}
       </div>
     )
-  }
+  },
 )
 Card.displayName = 'Card'
 

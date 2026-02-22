@@ -8,10 +8,7 @@ export interface PanelProps extends React.HTMLAttributes<HTMLDivElement> {
 const Panel = React.forwardRef<HTMLDivElement, PanelProps>(
   ({ className, variant = 'primary', children, ...props }, ref) => {
     const variants: Record<string, string> = {
-      primary: [
-        'paper-base texture-grain',
-        'rounded-[var(--radius-xl)] p-8',
-      ].join(' '),
+      primary: ['paper-base texture-grain', 'rounded-[var(--radius-xl)] p-8'].join(' '),
       secondary: [
         'bg-[var(--color-surface-secondary)]',
         'border border-[var(--color-border-default)]',
@@ -32,15 +29,11 @@ const Panel = React.forwardRef<HTMLDivElement, PanelProps>(
     }
 
     return (
-      <div
-        ref={ref}
-        className={cn('relative', variants[variant], className)}
-        {...props}
-      >
+      <div ref={ref} className={cn('relative', variants[variant], className)} {...props}>
         {children}
       </div>
     )
-  }
+  },
 )
 Panel.displayName = 'Panel'
 

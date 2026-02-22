@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* ================================================================
    DESIGN TOKENS — Warm, Organic, Premium
@@ -142,10 +142,12 @@ body {
 
 .metal-accent {
   position: relative;
-  background: linear-gradient(165deg,
-      var(--color-accent-gold-highlight) 0%,
-      var(--color-accent-gold) 40%,
-      var(--color-accent-gold-dark) 100%);
+  background: linear-gradient(
+    165deg,
+    var(--color-accent-gold-highlight) 0%,
+    var(--color-accent-gold) 40%,
+    var(--color-accent-gold-dark) 100%
+  );
   border: 1px solid var(--color-accent-gold);
   box-shadow:
     var(--shadow-sm),
@@ -156,10 +158,12 @@ body {
 
 .metal-interactive {
   position: relative;
-  background: linear-gradient(165deg,
-      var(--color-accent-gold-highlight) 0%,
-      var(--color-accent-gold) 40%,
-      var(--color-accent-gold-dark) 100%);
+  background: linear-gradient(
+    165deg,
+    var(--color-accent-gold-highlight) 0%,
+    var(--color-accent-gold) 40%,
+    var(--color-accent-gold-dark) 100%
+  );
   border: 1px solid var(--color-accent-gold);
   box-shadow:
     var(--shadow-sm),
@@ -182,9 +186,7 @@ body {
 
 .metal-interactive:active {
   transform: translateY(0px);
-  box-shadow:
-    var(--shadow-xs),
-    var(--shadow-inner-pressed);
+  box-shadow: var(--shadow-xs), var(--shadow-inner-pressed);
 }
 
 .glass-soft {
@@ -196,12 +198,14 @@ body {
 }
 
 .glow-soft {
-  box-shadow: 0 0 20px var(--color-accent-gold-glow),
+  box-shadow:
+    0 0 20px var(--color-accent-gold-glow),
     0 0 40px rgba(184, 149, 63, 0.06);
 }
 
 .glow-focus {
-  box-shadow: 0 0 0 3px var(--color-accent-gold-glow),
+  box-shadow:
+    0 0 0 3px var(--color-accent-gold-glow),
     0 0 12px rgba(184, 149, 63, 0.1);
 }
 
@@ -210,22 +214,24 @@ body {
    ================================================================ */
 
 .light-top-diffuse {
-  background-image: linear-gradient(to bottom,
-      rgba(255, 255, 255, 0.08) 0%,
-      transparent 40%);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 0%, transparent 40%);
 }
 
 .light-metal-highlight {
-  background-image: linear-gradient(135deg,
-      rgba(232, 212, 139, 0.12) 0%,
-      transparent 50%,
-      rgba(184, 149, 63, 0.04) 100%);
+  background-image: linear-gradient(
+    135deg,
+    rgba(232, 212, 139, 0.12) 0%,
+    transparent 50%,
+    rgba(184, 149, 63, 0.04) 100%
+  );
 }
 
 .light-surface-illumination {
-  background-image: linear-gradient(to bottom,
-      rgba(250, 248, 243, 0.6) 0%,
-      rgba(245, 240, 232, 0) 100%);
+  background-image: linear-gradient(
+    to bottom,
+    rgba(250, 248, 243, 0.6) 0%,
+    rgba(245, 240, 232, 0) 100%
+  );
 }
 
 /* ================================================================
@@ -255,8 +261,9 @@ body {
   transform-style: preserve-3d;
   transform: rotate3d(1, -1, 0, -18deg);
   transform-origin: 50% 50% 0;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   animation: card-float 6s ease-in-out infinite;
 }
@@ -267,8 +274,13 @@ body {
 }
 
 @keyframes card-float {
-  0%, 100% { transform: rotate3d(1, -1, 0, -18deg) translateY(0px); }
-  50% { transform: rotate3d(1, -1, 0, -16deg) translateY(-8px); }
+  0%,
+  100% {
+    transform: rotate3d(1, -1, 0, -18deg) translateY(0px);
+  }
+  50% {
+    transform: rotate3d(1, -1, 0, -16deg) translateY(-8px);
+  }
 }
 
 /* Card Face */
@@ -278,13 +290,7 @@ body {
   height: 100%;
   border-radius: 16px;
   overflow: hidden;
-  background: linear-gradient(
-    155deg,
-    #2c2419 0%,
-    #3d3226 30%,
-    #2c2419 60%,
-    #1a150e 100%
-  );
+  background: linear-gradient(155deg, #2c2419 0%, #3d3226 30%, #2c2419 60%, #1a150e 100%);
   border: 1px solid rgba(184, 149, 63, 0.35);
   box-shadow:
     0 20px 60px rgba(44, 36, 25, 0.25),
@@ -328,8 +334,9 @@ body {
   background: rgba(255, 255, 255, 0.12);
   box-shadow: 0 0 60px 40px rgba(255, 255, 255, 0.08);
   transform: skewX(-40deg);
-  transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              background 0.6s;
+  transition:
+    left 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.6s;
   pointer-events: none;
   z-index: 4;
 }

@@ -14,14 +14,23 @@ export interface ModalProps {
   className?: string
 }
 
-export function Modal({ open, onClose, title, children, variant = 'primary', className }: ModalProps) {
+export function Modal({
+  open,
+  onClose,
+  title,
+  children,
+  variant = 'primary',
+  className,
+}: ModalProps) {
   React.useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
     }
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [open])
 
   React.useEffect(() => {
@@ -38,7 +47,8 @@ export function Modal({ open, onClose, title, children, variant = 'primary', cla
     primary: 'paper-elevated texture-grain',
     secondary: 'paper-base texture-grain',
     ghost: 'glass-soft',
-    metal: 'paper-elevated light-metal-highlight texture-grain border-[var(--color-border-gold)] glow-soft',
+    metal:
+      'paper-elevated light-metal-highlight texture-grain border-[var(--color-border-gold)] glow-soft',
   }
 
   return (
@@ -57,25 +67,23 @@ export function Modal({ open, onClose, title, children, variant = 'primary', cla
           'shadow-[var(--shadow-xl)]',
           'animate-[modalIn_var(--duration-normal)_var(--ease-out)]',
           variants[variant],
-          className
+          className,
         )}
         role="dialog"
         aria-modal="true"
         aria-label={title}
       >
         {/* Header */}
-        {(title) && (
-          <div className="flex items-center justify-between mb-4">
+        {title && (
+          <div className="mb-4 flex items-center justify-between">
             {title && (
-              <h2 className="text-lg font-semibold text-[var(--color-text-primary)]">
-                {title}
-              </h2>
+              <h2 className="text-lg font-semibold text-[var(--color-text-primary)]">{title}</h2>
             )}
             <Button
               variant="ghost"
               size="sm"
               onClick={onClose}
-              className="ml-auto -mr-2"
+              className="-mr-2 ml-auto"
               aria-label="Close"
             >
               <X className="h-4 w-4" />
@@ -84,9 +92,7 @@ export function Modal({ open, onClose, title, children, variant = 'primary', cla
         )}
 
         {/* Content */}
-        <div className="text-[var(--color-text-secondary)] text-sm">
-          {children}
-        </div>
+        <div className="text-sm text-[var(--color-text-secondary)]">{children}</div>
       </div>
     </div>
   )

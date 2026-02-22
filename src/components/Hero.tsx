@@ -9,34 +9,31 @@ export function Hero() {
   const { apy, tvl } = useEtherFi()
 
   return (
-    <section className="relative pt-32 pb-24 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-[85vh] overflow-hidden">
+    <section className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-4 pt-32 pb-24 sm:px-6 lg:px-8">
       {/* Soft ambient light */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[var(--color-accent-gold-glow)] rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-[var(--color-accent-gold-muted)] rounded-full blur-[100px] -z-10" />
+      <div className="absolute top-0 left-1/2 -z-10 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-[var(--color-accent-gold-glow)] blur-[120px]" />
+      <div className="absolute right-0 bottom-0 -z-10 h-[300px] w-[400px] rounded-full bg-[var(--color-accent-gold-muted)] blur-[100px]" />
 
-      <div className="text-center max-w-3xl mx-auto space-y-8 z-10">
+      <div className="z-10 mx-auto max-w-3xl space-y-8 text-center">
         {/* Status Badge */}
         <Badge variant="metal" className="gap-2">
-          <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" />
+          <span className="flex h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-600" />
           Native Restaking is live
         </Badge>
 
         {/* Heading */}
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-[var(--color-text-primary)] text-balance leading-[1.1]">
-          Make your ETH{' '}
-          <span className="text-[var(--color-accent-gold)]">
-            Work Harder
-          </span>
+        <h1 className="text-5xl leading-[1.1] font-bold tracking-tight text-balance text-[var(--color-text-primary)] md:text-7xl">
+          Make your ETH <span className="text-[var(--color-accent-gold)]">Work Harder</span>
         </h1>
 
         {/* Subline */}
-        <p className="text-lg md:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto text-balance leading-relaxed">
-          Stake your ETH to receive eETH. Native restaking on EigenLayer to supercharge your rewards.
-          Keep control of your keys.
+        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-balance text-[var(--color-text-secondary)] md:text-xl">
+          Stake your ETH to receive eETH. Native restaking on EigenLayer to supercharge your
+          rewards. Keep control of your keys.
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+        <div className="flex flex-col items-center justify-center gap-4 pt-2 sm:flex-row">
           <Button size="lg" variant="metal">
             Stake Now
           </Button>
@@ -47,7 +44,7 @@ export function Hero() {
         </div>
 
         {/* Yield Display */}
-        <div className="pt-12 w-full max-w-2xl mx-auto">
+        <div className="mx-auto w-full max-w-2xl pt-12">
           <YieldDisplay apy={apy} tvl={tvl} />
         </div>
       </div>

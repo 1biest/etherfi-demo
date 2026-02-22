@@ -60,24 +60,24 @@ const features = [
 
 export function CashSection() {
   return (
-    <div className="flex flex-col items-center px-6 py-12 max-w-6xl mx-auto w-full gap-10">
+    <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-10 px-6 py-12">
       {/* Header */}
-      <div className="text-center max-w-2xl space-y-4">
+      <div className="max-w-2xl space-y-4 text-center">
         <Badge variant="metal" className="gap-2">
           <CreditCard className="h-3 w-3" />
           Visa Card
         </Badge>
-        <h1 className="text-4xl md:text-5xl font-bold text-[var(--color-text-primary)] leading-tight">
+        <h1 className="text-4xl leading-tight font-bold text-[var(--color-text-primary)] md:text-5xl">
           Ether.fi <span className="text-[var(--color-accent-gold)]">Cash</span>
         </h1>
-        <p className="text-[var(--color-text-secondary)] text-lg leading-relaxed">
-          A DeFi-native, non-custodial Visa card.
-          Spend your crypto rewards anywhere in the world — without selling your holdings.
+        <p className="text-lg leading-relaxed text-[var(--color-text-secondary)]">
+          A DeFi-native, non-custodial Visa card. Spend your crypto rewards anywhere in the world —
+          without selling your holdings.
         </p>
       </div>
 
       {/* Metrics */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
+      <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-4">
         {metrics.map((metric) => (
           <Card
             key={metric.label}
@@ -85,12 +85,14 @@ export function CashSection() {
             padding="sm"
             className="text-center"
           >
-            <metric.icon className="h-4 w-4 mx-auto text-[var(--color-accent-gold)] mb-1" />
-            <span className="text-xs font-medium text-[var(--color-text-tertiary)] uppercase tracking-wider">
+            <metric.icon className="mx-auto mb-1 h-4 w-4 text-[var(--color-accent-gold)]" />
+            <span className="text-xs font-medium tracking-wider text-[var(--color-text-tertiary)] uppercase">
               {metric.label}
             </span>
             <div className="mt-1">
-              <span className={`text-2xl font-bold ${metric.highlight ? 'text-[var(--color-accent-gold)]' : 'text-[var(--color-text-primary)]'}`}>
+              <span
+                className={`text-2xl font-bold ${metric.highlight ? 'text-[var(--color-accent-gold)]' : 'text-[var(--color-text-primary)]'}`}
+              >
                 {metric.value}
               </span>
             </div>
@@ -101,11 +103,11 @@ export function CashSection() {
       <Divider variant="metal" label="Card Tiers" className="w-full" />
 
       {/* Tiers */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full items-start mt-8">
+      <div className="mt-8 grid w-full grid-cols-1 items-start gap-8 lg:grid-cols-3">
         {tiers.map((tier) => (
-          <div key={tier.name} className="flex flex-col gap-8 w-full group/tier">
+          <div key={tier.name} className="group/tier flex w-full flex-col gap-8">
             {/* 3D Card Visual */}
-            <div className="w-full px-6 pt-12 pb-8 h-[250px] flex items-center justify-center">
+            <div className="flex h-[250px] w-full items-center justify-center px-6 pt-12 pb-8">
               <CreditCard3D tier={tier.name} />
             </div>
 
@@ -113,23 +115,28 @@ export function CashSection() {
             <Card
               variant={tier.highlighted ? 'metal' : 'primary'}
               padding="md"
-              className="flex flex-col gap-4 h-full w-full"
+              className="flex h-full w-full flex-col gap-4"
             >
               <div className="text-center">
                 <h3 className="text-lg font-bold text-[var(--color-text-primary)]">{tier.name}</h3>
                 <div className="mt-2">
-                  <span className="text-3xl font-bold text-[var(--color-accent-gold)]">{tier.cashback}</span>
-                  <span className="text-sm text-[var(--color-text-muted)] ml-1">cashback</span>
+                  <span className="text-3xl font-bold text-[var(--color-accent-gold)]">
+                    {tier.cashback}
+                  </span>
+                  <span className="ml-1 text-sm text-[var(--color-text-muted)]">cashback</span>
                 </div>
-                <div className="text-xs text-[var(--color-text-tertiary)] mt-1">{tier.fee}</div>
+                <div className="mt-1 text-xs text-[var(--color-text-tertiary)]">{tier.fee}</div>
               </div>
 
               <Divider variant="ghost" />
 
-              <ul className="space-y-2 flex-1">
+              <ul className="flex-1 space-y-2">
                 {tier.perks.map((perk, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)]">
-                    <span className="h-1 w-1 rounded-full bg-[var(--color-accent-gold)] flex-shrink-0" />
+                  <li
+                    key={i}
+                    className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)]"
+                  >
+                    <span className="h-1 w-1 flex-shrink-0 rounded-full bg-[var(--color-accent-gold)]" />
                     {perk}
                   </li>
                 ))}
@@ -138,7 +145,7 @@ export function CashSection() {
               <Button
                 variant={tier.highlighted ? 'metal' : 'secondary'}
                 size="sm"
-                className="w-full mt-auto"
+                className="mt-auto w-full"
               >
                 {tier.fee === 'Invite Only' ? 'Request Invite' : 'Get Card'}
               </Button>
@@ -148,15 +155,19 @@ export function CashSection() {
       </div>
 
       {/* Features */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+      <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
         {features.map((feature) => (
-          <Panel key={feature.title} variant="secondary" className="flex gap-4 items-start !p-5">
-            <div className="h-10 w-10 rounded-[var(--radius-md)] bg-[var(--color-accent-gold-muted)] border border-[var(--color-accent-gold-border)] flex items-center justify-center flex-shrink-0">
+          <Panel key={feature.title} variant="secondary" className="flex items-start gap-4 !p-5">
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-[var(--radius-md)] border border-[var(--color-accent-gold-border)] bg-[var(--color-accent-gold-muted)]">
               <feature.icon className="h-5 w-5 text-[var(--color-accent-gold)]" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">{feature.title}</h3>
-              <p className="text-xs text-[var(--color-text-tertiary)] mt-0.5 leading-relaxed">{feature.description}</p>
+              <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
+                {feature.title}
+              </h3>
+              <p className="mt-0.5 text-xs leading-relaxed text-[var(--color-text-tertiary)]">
+                {feature.description}
+              </p>
             </div>
           </Panel>
         ))}

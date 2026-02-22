@@ -13,7 +13,8 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
       primary: 'bg-[var(--color-border-default)]',
       secondary: 'bg-[var(--color-border-strong)]',
       ghost: 'bg-[var(--color-border-subtle)]',
-      metal: 'bg-gradient-to-r from-transparent via-[var(--color-accent-gold-border)] to-transparent',
+      metal:
+        'bg-gradient-to-r from-transparent via-[var(--color-accent-gold-border)] to-transparent',
     }
 
     if (label) {
@@ -24,11 +25,11 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
           role="separator"
           {...props}
         >
-          <div className={cn('flex-1 h-px', variants[variant])} />
-          <span className="text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">
+          <div className={cn('h-px flex-1', variants[variant])} />
+          <span className="text-xs font-medium tracking-wider text-[var(--color-text-muted)] uppercase">
             {label}
           </span>
-          <div className={cn('flex-1 h-px', variants[variant])} />
+          <div className={cn('h-px flex-1', variants[variant])} />
         </div>
       )
     }
@@ -52,7 +53,7 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
         {...props}
       />
     )
-  }
+  },
 )
 Divider.displayName = 'Divider'
 

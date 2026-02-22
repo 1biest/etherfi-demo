@@ -16,7 +16,7 @@ const ETHERFI_ABI = [
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
-  }
+  },
 ] as const
 
 const ETHERFI_ADDRESS = '0x1234567890123456789012345678901234567890' // Mock Address
@@ -41,6 +41,6 @@ export function useEtherFi() {
     tvl: '3.2B',
     userBalance: '0.00',
     points: 1250,
-    eigenLayerPoints: 450
+    eigenLayerPoints: 450,
   }
 }

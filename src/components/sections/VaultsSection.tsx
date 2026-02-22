@@ -54,7 +54,8 @@ const features = [
   {
     icon: BarChart3,
     title: 'Diversified Strategies',
-    description: 'Assets deployed across multiple DeFi protocols for optimized risk-adjusted returns.',
+    description:
+      'Assets deployed across multiple DeFi protocols for optimized risk-adjusted returns.',
   },
   {
     icon: Shield,
@@ -65,24 +66,24 @@ const features = [
 
 export function VaultsSection() {
   return (
-    <div className="flex flex-col items-center px-6 py-12 max-w-6xl mx-auto w-full gap-10">
+    <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-10 px-6 py-12">
       {/* Header */}
-      <div className="text-center max-w-2xl space-y-4">
+      <div className="max-w-2xl space-y-4 text-center">
         <Badge variant="metal" className="gap-2">
           <TrendingUp className="h-3 w-3" />
           Yield Optimized
         </Badge>
-        <h1 className="text-4xl md:text-5xl font-bold text-[var(--color-text-primary)] leading-tight">
+        <h1 className="text-4xl leading-tight font-bold text-[var(--color-text-primary)] md:text-5xl">
           Liquid <span className="text-[var(--color-accent-gold)]">Vaults</span>
         </h1>
-        <p className="text-[var(--color-text-secondary)] text-lg leading-relaxed">
+        <p className="text-lg leading-relaxed text-[var(--color-text-secondary)]">
           Automated DeFi strategy vaults that optimize yields on ETH, BTC, and stablecoins.
           Diversified, auto-compounding, and professionally managed.
         </p>
       </div>
 
       {/* Overall Metrics */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
+      <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-4">
         {overallMetrics.map((metric) => (
           <Card
             key={metric.label}
@@ -90,11 +91,13 @@ export function VaultsSection() {
             padding="sm"
             className="text-center"
           >
-            <span className="text-xs font-medium text-[var(--color-text-tertiary)] uppercase tracking-wider">
+            <span className="text-xs font-medium tracking-wider text-[var(--color-text-tertiary)] uppercase">
               {metric.label}
             </span>
             <div className="mt-1">
-              <span className={`text-2xl md:text-3xl font-bold ${metric.highlight ? 'text-[var(--color-accent-gold)]' : 'text-[var(--color-text-primary)]'}`}>
+              <span
+                className={`text-2xl font-bold md:text-3xl ${metric.highlight ? 'text-[var(--color-accent-gold)]' : 'text-[var(--color-text-primary)]'}`}
+              >
                 {metric.value}
               </span>
             </div>
@@ -105,31 +108,41 @@ export function VaultsSection() {
       <Divider variant="metal" label="Active Vaults" className="w-full" />
 
       {/* Vault Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
         {vaults.map((vault) => (
           <Card key={vault.name} variant="primary" padding="md" className="space-y-3">
             <div className="flex items-start justify-between">
               <div>
-                <h3 className="text-base font-semibold text-[var(--color-text-primary)]">{vault.name}</h3>
-                <p className="text-xs text-[var(--color-text-muted)] mt-0.5">{vault.strategy}</p>
+                <h3 className="text-base font-semibold text-[var(--color-text-primary)]">
+                  {vault.name}
+                </h3>
+                <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">{vault.strategy}</p>
               </div>
-              <Badge variant={vault.risk === 'Low' ? 'primary' : vault.risk === 'High' ? 'ghost' : 'secondary'}>
+              <Badge
+                variant={
+                  vault.risk === 'Low' ? 'primary' : vault.risk === 'High' ? 'ghost' : 'secondary'
+                }
+              >
                 {vault.risk}
               </Badge>
             </div>
 
-            <div className="flex items-center justify-between pt-2 border-t border-[var(--color-border-subtle)]">
+            <div className="flex items-center justify-between border-t border-[var(--color-border-subtle)] pt-2">
               <div>
                 <span className="text-xs text-[var(--color-text-muted)]">APY</span>
                 <div className="text-xl font-bold text-[var(--color-accent-gold)]">{vault.apy}</div>
               </div>
               <div className="text-right">
                 <span className="text-xs text-[var(--color-text-muted)]">TVL</span>
-                <div className="text-xl font-bold text-[var(--color-text-primary)]">{vault.tvl}</div>
+                <div className="text-xl font-bold text-[var(--color-text-primary)]">
+                  {vault.tvl}
+                </div>
               </div>
               <div className="text-right">
                 <span className="text-xs text-[var(--color-text-muted)]">Asset</span>
-                <div className="text-sm font-medium text-[var(--color-text-secondary)]">{vault.asset}</div>
+                <div className="text-sm font-medium text-[var(--color-text-secondary)]">
+                  {vault.asset}
+                </div>
               </div>
             </div>
 
@@ -141,14 +154,22 @@ export function VaultsSection() {
       </div>
 
       {/* Features */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
         {features.map((feature) => (
-          <Panel key={feature.title} variant="secondary" className="flex flex-col items-center text-center !p-5 gap-3">
-            <div className="h-10 w-10 rounded-full bg-[var(--color-accent-gold-muted)] border border-[var(--color-accent-gold-border)] flex items-center justify-center">
+          <Panel
+            key={feature.title}
+            variant="secondary"
+            className="flex flex-col items-center gap-3 !p-5 text-center"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-accent-gold-border)] bg-[var(--color-accent-gold-muted)]">
               <feature.icon className="h-5 w-5 text-[var(--color-accent-gold)]" />
             </div>
-            <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">{feature.title}</h3>
-            <p className="text-xs text-[var(--color-text-tertiary)] leading-relaxed">{feature.description}</p>
+            <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
+              {feature.title}
+            </h3>
+            <p className="text-xs leading-relaxed text-[var(--color-text-tertiary)]">
+              {feature.description}
+            </p>
           </Panel>
         ))}
       </div>

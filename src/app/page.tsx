@@ -26,9 +26,9 @@ const sections = [
 
 export default function Home() {
   return (
-    <div className="flex flex-col h-screen bg-[var(--color-surface-primary)]">
+    <div className="flex h-screen flex-col bg-[var(--color-surface-primary)]">
       <Header />
-      <div className="flex-1 pt-16 min-h-0">
+      <div className="min-h-0 flex-1 pt-16">
         <Carousel sections={sections} />
       </div>
     </div>

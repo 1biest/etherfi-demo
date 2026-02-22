@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'metal'
   size?: 'sm' | 'md' | 'lg'
 }
@@ -59,12 +58,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           variants[variant],
           sizes[size],
           'duration-[var(--duration-fast)]',
-          className
+          className,
         )}
         {...props}
       />
     )
-  }
+  },
 )
 Button.displayName = 'Button'
 

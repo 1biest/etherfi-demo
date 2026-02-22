@@ -35,12 +35,12 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
           'text-xs font-medium',
           'rounded-[var(--radius-full)]',
           variants[variant],
-          className
+          className,
         )}
         {...props}
       />
     )
-  }
+  },
 )
 Badge.displayName = 'Badge'
 

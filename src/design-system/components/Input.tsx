@@ -63,20 +63,19 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             'h-10 w-full rounded-[var(--radius-md)] px-3 text-sm',
             'text-[var(--color-text-primary)]',
             'placeholder:text-[var(--color-text-muted)]',
-            'outline-none transition-all duration-[var(--duration-fast)]',
-            'disabled:opacity-50 disabled:cursor-not-allowed',
+            'transition-all duration-[var(--duration-fast)] outline-none',
+            'disabled:cursor-not-allowed disabled:opacity-50',
             variants[variant],
-            error && 'border-red-400 focus:border-red-400 focus:shadow-[0_0_0_3px_rgba(239,68,68,0.1)]',
-            className
+            error &&
+              'border-red-400 focus:border-red-400 focus:shadow-[0_0_0_3px_rgba(239,68,68,0.1)]',
+            className,
           )}
           {...props}
         />
-        {error && (
-          <p className="text-xs text-red-500">{error}</p>
-        )}
+        {error && <p className="text-xs text-red-500">{error}</p>}
       </div>
     )
-  }
+  },
 )
 Input.displayName = 'Input'
 
