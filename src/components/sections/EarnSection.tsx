@@ -15,7 +15,7 @@ import { ArrowUpRight, Shield, Layers, Zap, Globe, Lock, Loader2, ChevronDown } 
 import { useEtherfiRates, BaseAssetData } from '@/hooks/useEtherfiRates'
 
 const ASSET_ICONS: Record<string, string> = {
-  ETH: 'https://etherfi.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa2eb6f5b-6767-43e2-890d-4acb71d6176b%2F4da40c95-7d07-41f5-941f-465457e90b1c%2FLiquid.svg?id=1deb0952-7c43-81dc-8d2c-cdc2cf37dee2&table=block&spaceId=a2eb6f5b-6767-43e2-890d-4acb71d6176b&userId=&cache=v2',
+  ETH: '/eth-token-icon.png',
   wETH: 'https://etherfi.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa2eb6f5b-6767-43e2-890d-4acb71d6176b%2Fb959e47c-10a1-4ebc-b0af-4980f6938b37%2Feeth.png?id=1deb0952-7c43-81d8-b4d3-ed63077f7b7a&table=block&spaceId=a2eb6f5b-6767-43e2-890d-4acb71d6176b&width=2000&userId=&cache=v2',
   weETH:
     'https://etherfi.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa2eb6f5b-6767-43e2-890d-4acb71d6176b%2F0536547a-f5e0-461c-8c9d-75e532a90dfa%2Fweeth.png?id=1deb0952-7c43-8192-a668-fd4e42ff1d15&table=block&spaceId=a2eb6f5b-6767-43e2-890d-4acb71d6176b&width=2000&userId=&cache=v2',

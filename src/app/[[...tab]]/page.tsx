@@ -20,7 +20,7 @@ export const sections = [
     content: <VaultsSection />,
   },
   {
-    id: 'restaking',
+    id: 'earn',
     label: 'Earn',
     content: <EarnSection />,
   },

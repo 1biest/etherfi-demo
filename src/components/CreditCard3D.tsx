@@ -143,29 +143,39 @@ export function CreditCard3D({
           className="absolute inset-0 h-full w-full [transform:rotateX(var(--idle-rx))_rotateZ(var(--idle-rz))_rotateY(var(--idle-ry))_scale(var(--idle-scale))] transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[transform:rotateX(0deg)_rotateZ(0deg)_rotateY(0deg)_scale(var(--hover-scale))] group-hover/tier:[transform:rotateX(0deg)_rotateZ(0deg)_rotateY(0deg)_scale(var(--hover-scale))]"
           style={{ transformStyle: 'preserve-3d' }}
         >
-          {/* Box (Main Card) */}
+          {/* Box (Main Card) Front */}
           <div
             className={`absolute inset-0 overflow-hidden rounded-2xl shadow-xl ${styles.bg} ${styles.border} border`}
             style={{
-              transform: 'translateZ(0px)', // anchor layer
+              transform: 'translateZ(1px)', // anchor layer
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
               backgroundImage: 'url(https://grainy-gradients.vercel.app/noise.svg)',
-              backgroundSize: '150px', // Forces the grain SVG to render smaller/finer
+              backgroundSize: '100px', // Forces the grain SVG to render smaller/finer
               filter:
                 tier === 'Black'
-                  ? 'brightness(0.9) contrast(120%)'
-                  : 'brightness(1) contrast(120%)',
+                  ? 'brightness(0.9) contrast(120%) grayscale(1)'
+                  : 'brightness(1) contrast(120%) grayscale(1)',
             }}
           >
             {/* Card Content - relative to be above the noise but below shine */}
             <div
-              className={`absolute inset-0 z-10 flex flex-col justify-between p-6 ${tier === 'Black' ? 'mix-blend-normal' : 'mix-blend-multiply'}`}
+              className={`absolute inset-0 z-10 flex flex-col justify-between p-6 pt-4 ${tier === 'Black' ? 'mix-blend-normal' : 'mix-blend-multiply'}`}
             >
               <div className="flex items-start justify-between">
-                <div className={`text-xl font-bold ${styles.text}`}>ether.fi</div>
+                <div
+                  className={`flex items-center gap-2 text-xl font-bold drop-shadow-sm ${styles.text}`}
+                >
+                  <img
+                    src="/transparent-light-bg-etherfi_logo-black-landscape-1.svg"
+                    alt="ether.fi logo"
+                    className={`h-8 object-contain ${tier === 'Black' ? 'brightness-0 invert' : ''}`}
+                  />
+                </div>
                 <CreditCard className={`h-7 w-7 ${styles.textFaint}`} />
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-2 pt-2">
                 {/* Chip */}
                 <div className="flex gap-2">
                   <div
@@ -176,17 +186,13 @@ export function CreditCard3D({
                 </div>
 
                 {/* Number */}
-                <div
-                  className={`mt-2 font-mono text-lg tracking-[0.25em] sm:text-xl ${styles.text}`}
-                >
+                <div className={`font-mono text-base tracking-[0.25em] ${styles.text}`}>
                   •••• •••• •••• 4829
                 </div>
 
                 {/* Details */}
                 <div className="flex items-end justify-between pb-1">
-                  <div
-                    className={`text-[10px] tracking-wider uppercase sm:text-xs ${styles.textMuted}`}
-                  >
+                  <div className={`text-[10px] tracking-wider uppercase ${styles.textMuted}`}>
                     Card Holder
                     <div
                       className={`mt-0.5 text-sm font-bold tracking-normal normal-case ${styles.text}`}
@@ -195,7 +201,7 @@ export function CreditCard3D({
                     </div>
                   </div>
                   <div
-                    className={`text-right text-[10px] tracking-wider uppercase sm:text-xs ${styles.textMuted}`}
+                    className={`text-right text-[10px] tracking-wider uppercase ${styles.textMuted}`}
                   >
                     Expires
                     <div className={`mt-0.5 text-sm font-bold tracking-normal ${styles.text}`}>
@@ -204,6 +210,43 @@ export function CreditCard3D({
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Shine effect that moves with mouse */}
+            <div
+              className="pointer-events-none absolute top-0 left-[var(--idle-shine)] z-20 h-[200%] w-[100%] [transform:skewX(-40deg)] bg-white/40 [box-shadow:0_0_60px_40px_rgba(255,255,255,0.4)] transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:left-[calc(var(--mouse-y)*-300%)] group-hover/tier:left-[calc(var(--mouse-y)*-300%)] md:bg-white/30 md:[box-shadow:0_0_60px_40px_rgba(255,255,255,0.3)]"
+              style={{
+                opacity: tier === 'Black' ? 0.3 : 1,
+              }}
+            />
+          </div>
+
+          {/* Box (Main Card) Back */}
+          <div
+            className={`absolute inset-0 overflow-hidden rounded-2xl shadow-xl ${styles.bg} ${styles.border} border`}
+            style={{
+              transform: 'rotateX(180deg) translateZ(1px)', // flipped to the back
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              backgroundImage: 'url(https://grainy-gradients.vercel.app/noise.svg)',
+              backgroundSize: '100px',
+              filter:
+                tier === 'Black'
+                  ? 'brightness(0.9) contrast(120%) grayscale(1)'
+                  : 'brightness(1) contrast(120%) grayscale(1)',
+            }}
+          >
+            {/* Back Content */}
+            <div className="absolute inset-0 z-10 flex items-center justify-center p-6">
+              <img
+                src={
+                  tier === 'Black'
+                    ? '/etherfi_icon-white-outline.svg'
+                    : '/etherfi_icon-black-outline.svg'
+                }
+                alt="ether.fi icon"
+                className="h-20 w-20 object-contain opacity-40 drop-shadow-sm"
+              />
             </div>
 
             {/* Shine effect that moves with mouse */}

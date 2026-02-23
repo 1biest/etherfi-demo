@@ -2,6 +2,7 @@
 
 import { useState, use } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Sidebar } from '@/components/Sidebar'
 import { sections } from '@/app/[[...tab]]/page'
 import { useEtherfiRates } from '@/hooks/useEtherfiRates'
@@ -10,7 +11,7 @@ import { ChevronLeft, Loader2, ArrowUpRight } from 'lucide-react'
 
 // Map of asset symbols/names to specific icons from the main page
 const ASSET_ICONS: Record<string, string> = {
-  ETH: 'https://etherfi.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa2eb6f5b-6767-43e2-890d-4acb71d6176b%2F4da40c95-7d07-41f5-941f-465457e90b1c%2FLiquid.svg?id=1deb0952-7c43-81dc-8d2c-cdc2cf37dee2&table=block&spaceId=a2eb6f5b-6767-43e2-890d-4acb71d6176b&userId=&cache=v2',
+  ETH: '/eth-token-icon.png',
   wETH: 'https://etherfi.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa2eb6f5b-6767-43e2-890d-4acb71d6176b%2Fb959e47c-10a1-4ebc-b0af-4980f6938b37%2Feeth.png?id=1deb0952-7c43-81d8-b4d3-ed63077f7b7a&table=block&spaceId=a2eb6f5b-6767-43e2-890d-4acb71d6176b&width=2000&userId=&cache=v2',
   weETH:
     'https://etherfi.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa2eb6f5b-6767-43e2-890d-4acb71d6176b%2F0536547a-f5e0-461c-8c9d-75e532a90dfa%2Fweeth.png?id=1deb0952-7c43-8192-a668-fd4e42ff1d15&table=block&spaceId=a2eb6f5b-6767-43e2-890d-4acb71d6176b&width=2000&userId=&cache=v2',
@@ -31,6 +32,7 @@ export default function EarnAssetPage({ params }: { params: Promise<{ asset: str
       ? sections.findIndex((s) => s.id === 'earn')
       : 2,
   )
+  const [actionTab, setActionTab] = useState<'deposit' | 'swap'>('swap')
 
   const { data: ratesData, isLoading } = useEtherfiRates()
 
@@ -59,13 +61,13 @@ export default function EarnAssetPage({ params }: { params: Promise<{ asset: str
 
       <div className="flex h-screen min-w-0 flex-1 flex-col overflow-y-auto pb-16 md:pt-0 md:pb-0">
         <div className="mx-auto flex w-full max-w-5xl flex-col items-start gap-8 px-6 py-12 md:py-16">
-          <button
-            onClick={() => router.push('/earn')}
-            className="flex items-center gap-2 text-sm font-medium text-[var(--color-text-tertiary)] transition-colors hover:text-[var(--color-text-primary)]"
+          <Link
+            href="/earn"
+            className="flex cursor-pointer items-center gap-2 text-sm font-medium text-[var(--color-text-tertiary)] transition-colors hover:text-[var(--color-text-primary)]"
           >
             <ChevronLeft className="h-4 w-4" />
             Back to Earn
-          </button>
+          </Link>
 
           {isLoading ? (
             <div className="flex min-h-[40vh] w-full items-center justify-center">
@@ -208,64 +210,166 @@ export default function EarnAssetPage({ params }: { params: Promise<{ asset: str
 
               {/* Action Area */}
               <div className="mt-6 grid w-full cursor-default grid-cols-1 gap-8 lg:grid-cols-12">
-                {/* Deposit Card */}
+                {/* Action Card */}
                 <div className="lg:col-span-7">
                   <Card
                     variant="primary"
-                    className="flex h-full flex-col bg-[var(--color-surface-elevated)] p-8"
+                    className="flex h-full flex-col bg-[var(--color-surface-elevated)] p-0"
                   >
-                    <h3 className="mb-6 text-xl font-bold text-[var(--color-text-primary)]">
-                      Deposit Asset
-                    </h3>
+                    {/* Tabs Header */}
+                    <div className="flex w-full border-b border-[var(--color-border-subtle)]">
+                      <button
+                        onClick={() => setActionTab('swap')}
+                        className={`flex-1 cursor-pointer py-4 text-center font-bold tracking-wide transition-colors ${actionTab === 'swap' ? 'border-b-2 border-[var(--color-accent-gold)] bg-[var(--color-surface-tertiary)] text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)]'}`}
+                      >
+                        Swap
+                      </button>
+                      <button
+                        onClick={() => setActionTab('deposit')}
+                        className={`flex-1 cursor-pointer py-4 text-center font-bold tracking-wide transition-colors ${actionTab === 'deposit' ? 'border-b-2 border-[var(--color-accent-gold)] bg-[var(--color-surface-tertiary)] text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)]'}`}
+                      >
+                        Deposit
+                      </button>
+                    </div>
 
-                    <div className="flex flex-1 flex-col gap-6">
-                      <div className="flex cursor-default items-center justify-between rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-overlay)] p-4">
-                        <div className="flex flex-col">
-                          <span className="text-sm font-medium text-[var(--color-text-secondary)]">
-                            Amount to Deposit
-                          </span>
-                          <input
-                            type="text"
-                            placeholder="0.00"
-                            className="mt-1 w-full cursor-text bg-transparent text-3xl font-semibold text-[var(--color-text-primary)] outline-none"
-                          />
-                        </div>
-                        <div className="flex items-center gap-2 self-end rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-tertiary)] px-3 py-2">
-                          {ASSET_ICONS[asset.symbol || asset.name] ? (
-                            <img
-                              src={ASSET_ICONS[asset.symbol || asset.name]}
-                              alt="Token"
-                              className="h-5 w-5 rounded-full"
-                            />
-                          ) : null}
-                          <span className="text-sm font-bold">{asset.symbol || asset.name}</span>
-                        </div>
-                      </div>
+                    <div className="flex flex-1 flex-col gap-6 p-8">
+                      {actionTab === 'deposit' ? (
+                        <>
+                          <div className="flex cursor-default items-center justify-between rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-overlay)] p-4">
+                            <div className="flex flex-col">
+                              <span className="text-sm font-medium text-[var(--color-text-secondary)]">
+                                Amount to Deposit
+                              </span>
+                              <input
+                                type="text"
+                                placeholder="0.00"
+                                className="mt-1 w-full cursor-text bg-transparent text-3xl font-semibold text-[var(--color-text-primary)] outline-none"
+                              />
+                            </div>
+                            <div className="flex items-center gap-2 self-end rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-tertiary)] px-3 py-2">
+                              {ASSET_ICONS[asset.symbol || asset.name] ? (
+                                <img
+                                  src={ASSET_ICONS[asset.symbol || asset.name]}
+                                  alt="Token"
+                                  className="h-5 w-5 rounded-full"
+                                />
+                              ) : null}
+                              <span className="text-sm font-bold">
+                                {asset.symbol || asset.name}
+                              </span>
+                            </div>
+                          </div>
 
-                      <div className="mt-auto flex flex-col gap-3 border-t border-[var(--color-border-subtle)] pt-6">
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-[var(--color-text-secondary)]">
-                            Est. Annual Return
-                          </span>
-                          <span className="font-medium text-[var(--color-accent-gold)]">
-                            + ${((1000 * (asset.apy ?? 0)) / 100).toFixed(2)}
-                          </span>
-                        </div>
-                        <div className="mb-4 flex items-center justify-between text-sm">
-                          <span className="text-[var(--color-text-secondary)]">Gas Fee</span>
-                          <span className="font-medium text-[var(--color-text-primary)]">
-                            $4.52
-                          </span>
-                        </div>
-                        <div className="group w-full">
-                          <InteractiveMetalButton
-                            variant="secondary"
-                            className="w-full cursor-pointer py-4 text-base font-bold shadow-[var(--shadow-lg)]"
-                          >
-                            Confirm Deposit
-                          </InteractiveMetalButton>
-                        </div>
-                      </div>
+                          <div className="mt-auto flex flex-col gap-3 border-t border-[var(--color-border-subtle)] pt-6">
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="text-[var(--color-text-secondary)]">
+                                Est. Annual Return
+                              </span>
+                              <span className="font-medium text-[var(--color-accent-gold)]">
+                                + ${((1000 * (asset.apy ?? 0)) / 100).toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="mb-4 flex items-center justify-between text-sm">
+                              <span className="text-[var(--color-text-secondary)]">Gas Fee</span>
+                              <span className="font-medium text-[var(--color-text-primary)]">
+                                $4.52
+                              </span>
+                            </div>
+                            <div className="group w-full">
+                              <InteractiveMetalButton
+                                variant="secondary"
+                                className="w-full cursor-pointer py-4 text-base font-bold shadow-[var(--shadow-lg)]"
+                              >
+                                Confirm Deposit
+                              </InteractiveMetalButton>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="flex cursor-default items-center justify-between rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-overlay)] p-4">
+                            <div className="flex flex-col">
+                              <span className="text-sm font-medium text-[var(--color-text-secondary)]">
+                                Swap From
+                              </span>
+                              <input
+                                type="text"
+                                placeholder="0.00"
+                                className="mt-1 w-full cursor-text bg-transparent text-3xl font-semibold text-[var(--color-text-primary)] outline-none"
+                              />
+                            </div>
+                            <div className="flex items-center gap-2 self-end rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-tertiary)] px-3 py-2">
+                              {ASSET_ICONS.ETH ? (
+                                <img
+                                  src={ASSET_ICONS.ETH}
+                                  alt="Token"
+                                  className="h-5 w-5 rounded-full"
+                                />
+                              ) : null}
+                              <span className="text-sm font-bold">ETH</span>
+                            </div>
+                          </div>
+
+                          <div className="relative z-10 -my-3 flex w-full justify-center">
+                            <div className="cursor-pointer rounded-full border border-[var(--color-border-subtle)] bg-[var(--color-surface-tertiary)] p-2 transition-colors hover:bg-[var(--color-surface-hover)]">
+                              <ArrowUpRight className="h-4 w-4 rotate-90 text-[var(--color-text-primary)]" />
+                            </div>
+                          </div>
+
+                          <div className="flex cursor-default items-center justify-between rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-overlay)] p-4">
+                            <div className="flex flex-col">
+                              <span className="text-sm font-medium text-[var(--color-text-secondary)]">
+                                Swap To (Est.)
+                              </span>
+                              <input
+                                type="text"
+                                readOnly
+                                placeholder="0.00"
+                                className="mt-1 w-full cursor-text bg-transparent text-3xl font-semibold text-[var(--color-text-muted)] outline-none"
+                              />
+                            </div>
+                            <div className="flex items-center gap-2 self-end rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-tertiary)] px-3 py-2">
+                              {ASSET_ICONS[asset.symbol || asset.name] ? (
+                                <img
+                                  src={ASSET_ICONS[asset.symbol || asset.name]}
+                                  alt="Token"
+                                  className="h-5 w-5 rounded-full"
+                                />
+                              ) : null}
+                              <span className="text-sm font-bold">
+                                {asset.symbol || asset.name}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="mt-auto flex flex-col gap-3 border-t border-[var(--color-border-subtle)] pt-6">
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="text-[var(--color-text-secondary)]">
+                                Exchange Rate
+                              </span>
+                              <span className="font-medium text-[var(--color-text-primary)]">
+                                1 ETH = 0.98 {asset.symbol || asset.name}
+                              </span>
+                            </div>
+                            <div className="mb-4 flex items-center justify-between text-sm">
+                              <span className="text-[var(--color-text-secondary)]">
+                                Network Fee
+                              </span>
+                              <span className="font-medium text-[var(--color-text-primary)]">
+                                ~$3.10
+                              </span>
+                            </div>
+                            <div className="group w-full">
+                              <InteractiveMetalButton
+                                variant="secondary"
+                                className="w-full cursor-pointer py-4 text-base font-bold shadow-[var(--shadow-lg)]"
+                              >
+                                Swap Assets
+                              </InteractiveMetalButton>
+                            </div>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </Card>
                 </div>

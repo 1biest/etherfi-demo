@@ -40,14 +40,11 @@ export function Sidebar({ sections, activeIndex, setActiveIndex }: SidebarProps)
       <header className="glass-soft fixed top-0 right-0 left-0 z-50 flex h-16 items-center justify-between border-b border-[var(--color-border-subtle)] px-4 sm:px-6 md:hidden">
         {/* Logo */}
         <div className="flex items-center gap-2.5">
-          <div className="relative h-8 w-8 overflow-hidden rounded-full">
-            <div className="metal-accent absolute inset-0 rounded-full" />
-            <div className="absolute inset-[3px] rounded-full bg-[var(--color-surface-elevated)]" />
-            <div className="metal-accent absolute inset-[5px] rounded-full opacity-60" />
-          </div>
-          <span className="text-lg font-semibold tracking-tight text-[var(--color-text-primary)]">
-            ether.fi
-          </span>
+          <img
+            src="/transparent-light-bg-etherfi_logo-black-landscape-1.svg"
+            alt="ether.fi logo"
+            className="h-8 object-contain drop-shadow-md"
+          />
         </div>
         <button
           className="p-1 text-[var(--color-text-secondary)]"
@@ -93,14 +90,11 @@ export function Sidebar({ sections, activeIndex, setActiveIndex }: SidebarProps)
         <div className="flex h-full flex-col p-6">
           {/* Logo Section */}
           <div className="mb-10 flex items-center gap-3">
-            <div className="relative h-10 w-10 overflow-hidden rounded-full shadow-[var(--shadow-sm)]">
-              <div className="metal-accent absolute inset-0 rounded-full" />
-              <div className="absolute inset-[3px] rounded-full bg-[var(--color-surface-elevated)]" />
-              <div className="metal-accent absolute inset-[5px] rounded-full opacity-60" />
-            </div>
-            <span className="text-xl font-bold tracking-tight text-[var(--color-text-primary)]">
-              ether.fi
-            </span>
+            <img
+              src="/transparent-light-bg-etherfi_logo-black-landscape-1.svg"
+              alt="ether.fi logo"
+              className="h-12 object-contain"
+            />
           </div>
 
           {/* Navigation Section */}
