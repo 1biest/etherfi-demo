@@ -1,7 +1,14 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { Card, Badge, Button, Panel, Divider, InteractiveMetalButton } from '@/design-system/components'
+import {
+  Card,
+  Badge,
+  Button,
+  Panel,
+  Divider,
+  InteractiveMetalButton,
+} from '@/design-system/components'
 import { ArrowUpRight, TrendingUp, BarChart3, RefreshCw, Shield, Lock } from 'lucide-react'
 
 const vaults = [
@@ -112,7 +119,7 @@ export function VaultsSection() {
   }, [sortConfig])
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-10 px-6 py-12 cursor-default">
+    <div className="mx-auto flex w-full max-w-6xl cursor-default flex-col items-center gap-10 px-6 py-12">
       {/* Header */}
       <div className="max-w-2xl space-y-4 text-center">
         <Badge variant="metal" className="gap-2">
@@ -159,47 +166,57 @@ export function VaultsSection() {
         <div className="hidden grid-cols-12 gap-4 px-6 pb-2 text-xs font-medium tracking-wider text-[var(--color-text-tertiary)] uppercase md:grid">
           <button
             onClick={() => handleSort('name')}
-            className="col-span-3 flex cursor-pointer items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors text-left"
+            className="col-span-3 flex cursor-pointer items-center gap-1 text-left transition-colors hover:text-[var(--color-text-primary)]"
           >
             Vault Name
             {sortConfig.key === 'name' && (
-              <span className="text-[var(--color-accent-gold)]">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
+              <span className="text-[var(--color-accent-gold)]">
+                {sortConfig.direction === 'asc' ? '↑' : '↓'}
+              </span>
             )}
           </button>
           <button
             onClick={() => handleSort('asset')}
-            className="col-span-2 flex cursor-pointer items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors text-left"
+            className="col-span-2 flex cursor-pointer items-center gap-1 text-left transition-colors hover:text-[var(--color-text-primary)]"
           >
             Asset
             {sortConfig.key === 'asset' && (
-              <span className="text-[var(--color-accent-gold)]">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
+              <span className="text-[var(--color-accent-gold)]">
+                {sortConfig.direction === 'asc' ? '↑' : '↓'}
+              </span>
             )}
           </button>
           <button
             onClick={() => handleSort('tvl')}
-            className="col-span-2 flex cursor-pointer items-center justify-end gap-1 hover:text-[var(--color-text-primary)] transition-colors text-right"
+            className="col-span-2 flex cursor-pointer items-center justify-end gap-1 text-right transition-colors hover:text-[var(--color-text-primary)]"
           >
             {sortConfig.key === 'tvl' && (
-              <span className="text-[var(--color-accent-gold)]">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
+              <span className="text-[var(--color-accent-gold)]">
+                {sortConfig.direction === 'asc' ? '↑' : '↓'}
+              </span>
             )}
             TVL
           </button>
           <button
             onClick={() => handleSort('apy')}
-            className="col-span-2 flex cursor-pointer items-center justify-end gap-1 hover:text-[var(--color-text-primary)] transition-colors text-right"
+            className="col-span-2 flex cursor-pointer items-center justify-end gap-1 text-right transition-colors hover:text-[var(--color-text-primary)]"
           >
             {sortConfig.key === 'apy' && (
-              <span className="text-[var(--color-accent-gold)]">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
+              <span className="text-[var(--color-accent-gold)]">
+                {sortConfig.direction === 'asc' ? '↑' : '↓'}
+              </span>
             )}
             APY
           </button>
           <button
             onClick={() => handleSort('risk')}
-            className="col-span-2 flex cursor-pointer items-center justify-center gap-1 hover:text-[var(--color-text-primary)] transition-colors text-center"
+            className="col-span-2 flex cursor-pointer items-center justify-center gap-1 text-center transition-colors hover:text-[var(--color-text-primary)]"
           >
             Risk
             {sortConfig.key === 'risk' && (
-              <span className="text-[var(--color-accent-gold)]">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
+              <span className="text-[var(--color-accent-gold)]">
+                {sortConfig.direction === 'asc' ? '↑' : '↓'}
+              </span>
             )}
           </button>
           <div className="col-span-1" />
@@ -212,14 +229,16 @@ export function VaultsSection() {
               key={vault.name}
               variant="primary"
               padding="sm"
-              className="group flex flex-col gap-4 scale-100 cursor-pointer transition-all duration-500 ease-out hover:scale-[1.02] hover:bg-[var(--color-surface-hover)] md:grid md:grid-cols-12 md:items-center md:px-6 md:py-4"
+              className="group flex scale-100 cursor-pointer flex-col gap-4 transition-all duration-500 ease-out hover:scale-[1.02] hover:bg-[var(--color-surface-hover)] md:grid md:grid-cols-12 md:items-center md:px-6 md:py-4"
             >
               {/* Mobile: Top Row | Desktop: Col 1 */}
               <div className="col-span-3">
                 <h3 className="text-base font-semibold text-[var(--color-text-primary)]">
                   {vault.name}
                 </h3>
-                <p className="mt-0.5 text-xs text-[var(--color-text-muted)] line-clamp-1">{vault.strategy}</p>
+                <p className="mt-0.5 line-clamp-1 text-xs text-[var(--color-text-muted)]">
+                  {vault.strategy}
+                </p>
               </div>
 
               {/* Mobile: Asset/Badge | Desktop: Col 2 */}
@@ -269,7 +288,7 @@ export function VaultsSection() {
       </div>
 
       {/* Features */}
-      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3 cursor-default">
+      <div className="grid w-full cursor-default grid-cols-1 gap-4 md:grid-cols-3">
         {features.map((feature) => (
           <Panel
             key={feature.title}
