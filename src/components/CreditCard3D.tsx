@@ -150,14 +150,21 @@ export function CreditCard3D({
               transform: 'translateZ(1px)', // anchor layer
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
-              backgroundImage: 'url(https://grainy-gradients.vercel.app/noise.svg)',
-              backgroundSize: '100px', // Forces the grain SVG to render smaller/finer
               filter:
                 tier === 'Black'
-                  ? 'brightness(0.9) contrast(120%) grayscale(1)'
-                  : 'brightness(1) contrast(120%) grayscale(1)',
+                  ? 'brightness(0.9) contrast(120%)'
+                  : 'brightness(1) contrast(120%)',
             }}
           >
+            {/* Grayscale Grain Layer */}
+            <div
+              className="pointer-events-none absolute inset-0 z-0 opacity-70"
+              style={{
+                backgroundImage: 'url(https://grainy-gradients.vercel.app/noise.svg)',
+                backgroundSize: '50px', // extra fine grain
+                filter: 'grayscale(1)',
+              }}
+            />
             {/* Card Content - relative to be above the noise but below shine */}
             <div
               className={`absolute inset-0 z-10 flex flex-col justify-between p-6 pt-4 ${tier === 'Black' ? 'mix-blend-normal' : 'mix-blend-multiply'}`}
@@ -228,14 +235,21 @@ export function CreditCard3D({
               transform: 'rotateX(180deg) translateZ(1px)', // flipped to the back
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
-              backgroundImage: 'url(https://grainy-gradients.vercel.app/noise.svg)',
-              backgroundSize: '100px',
               filter:
                 tier === 'Black'
-                  ? 'brightness(0.9) contrast(120%) grayscale(1)'
-                  : 'brightness(1) contrast(120%) grayscale(1)',
+                  ? 'brightness(0.9) contrast(120%)'
+                  : 'brightness(1) contrast(120%)',
             }}
           >
+            {/* Grayscale Grain Layer */}
+            <div
+              className="pointer-events-none absolute inset-0 z-0 opacity-80"
+              style={{
+                backgroundImage: 'url(https://grainy-gradients.vercel.app/noise.svg)',
+                backgroundSize: '70px',
+                filter: 'grayscale(1)',
+              }}
+            />
             {/* Back Content */}
             <div className="absolute inset-0 z-10 flex items-center justify-center p-6">
               <img

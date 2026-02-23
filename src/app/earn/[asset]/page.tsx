@@ -19,8 +19,8 @@ const ASSET_ICONS: Record<string, string> = {
     'https://etherfi.notion.site/image/attachment%3A746c0e4b-881b-4f99-8539-4fb1abc6adf0%3AETHFI.svg?id=265b0952-7c43-8067-82b1-d6a41a4f31b2&table=block&spaceId=a2eb6f5b-6767-43e2-890d-4acb71d6176b&userId=&cache=v2',
   eBTC: 'https://etherfi.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa2eb6f5b-6767-43e2-890d-4acb71d6176b%2F9fcff3ce-61e5-441f-8062-1dffefeacfdd%2FeBTC.svg?id=1deb0952-7c43-81aa-b13f-eee3795f4dcf&table=block&spaceId=a2eb6f5b-6767-43e2-890d-4acb71d6176b&userId=&cache=v2',
   eUSD: 'https://etherfi.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fa2eb6f5b-6767-43e2-890d-4acb71d6176b%2F882883d7-c872-441a-8c0b-3e7a7c2b915d%2FeUSD.svg?id=1deb0952-7c43-81b7-a293-f9da26ac6e39&table=block&spaceId=a2eb6f5b-6767-43e2-890d-4acb71d6176b&userId=&cache=v2',
-  beHYPE: 'https://cryptologos.cc/logos/hyperliquid-hype-logo.svg',
-  frxUSD: 'https://cryptologos.cc/logos/frax-share-fxs-logo.svg',
+  beHYPE: 'https://www.ether.fi/app/logos/beHYPE.webp',
+  frxUSD: 'https://static.frax.com/images/tokens/frxusd.png',
 }
 
 export default function EarnAssetPage({ params }: { params: Promise<{ asset: string }> }) {
@@ -47,8 +47,8 @@ export default function EarnAssetPage({ params }: { params: Promise<{ asset: str
   const targetSymbol = decodeURIComponent(resolvedParams.asset)
   const asset = ratesData?.etherfi
     ? Object.values(ratesData.etherfi).find(
-        (a) => a.symbol === targetSymbol || a.name === targetSymbol,
-      )
+      (a) => a.symbol === targetSymbol || a.name === targetSymbol,
+    )
     : null
 
   return (
@@ -154,11 +154,13 @@ export default function EarnAssetPage({ params }: { params: Promise<{ asset: str
                   </span>
                   <div className="text-xl font-bold text-[var(--color-text-primary)]">
                     {asset.tvl !== undefined && asset.tvl > 0
-                      ? asset.tvl >= 1000000
-                        ? `$${(asset.tvl / 1000000).toFixed(2)}M`
-                        : asset.tvl >= 1000
-                          ? `$${(asset.tvl / 1000).toFixed(2)}k`
-                          : `$${asset.tvl.toFixed(2)}`
+                      ? asset.tvl >= 1_000_000_000
+                        ? `$${(asset.tvl / 1_000_000_000).toFixed(2)}B`
+                        : asset.tvl >= 1_000_000
+                          ? `$${(asset.tvl / 1_000_000).toFixed(2)}M`
+                          : asset.tvl >= 1000
+                            ? `$${(asset.tvl / 1000).toFixed(2)}k`
+                            : `$${asset.tvl.toFixed(2)}`
                       : '-'}
                   </div>
                 </Card>

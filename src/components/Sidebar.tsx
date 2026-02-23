@@ -1,10 +1,11 @@
 'use client'
 
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
-import { Button } from '@/design-system/components'
-import { Wallet, Menu, X } from 'lucide-react'
-import { useState } from 'react'
+import { useAccount, useConnect, useDisconnect, useBalance } from 'wagmi'
+import { Button, Modal } from '@/design-system/components'
+import { Wallet, Menu, X, Copy, Check } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
+import { formatUnits } from 'viem'
 
 interface SidebarProps {
   sections: { id: string; label: string }[]
@@ -13,19 +14,42 @@ interface SidebarProps {
 }
 
 export function Sidebar({ sections, activeIndex, setActiveIndex }: SidebarProps) {
-  const { isConnected } = useAccount()
+  const { isConnected, address } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useDisconnect()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isWalletModalOpen, setIsWalletModalOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  const { data: balanceData } = useBalance({
+    address: address,
+  })
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const isClientConnected = mounted && isConnected
+
+  const handleCopy = () => {
+    if (address) {
+      navigator.clipboard.writeText(address)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
+
+  const formatAddress = (addr?: string) => {
+    if (!addr) return ''
+    return `${addr.slice(0, 6)}...${addr.slice(-4)}`
+  }
 
   const handleConnect = () => {
     if (isConnected) {
       disconnect()
     } else {
-      const injectedConnector = connectors.find((c) => c.id === 'injected')
-      if (injectedConnector) {
-        connect({ connector: injectedConnector })
-      }
+      setIsWalletModalOpen(true)
     }
   }
 
@@ -74,14 +98,41 @@ export function Sidebar({ sections, activeIndex, setActiveIndex }: SidebarProps)
               </button>
             ))}
           </nav>
-          <Button
-            onClick={handleConnect}
-            variant="metal"
-            className="w-full gap-2 border-[var(--color-border-subtle)] bg-[var(--color-surface-elevated)] text-[var(--color-text-primary)] shadow-[var(--shadow-sm)] hover:border-[var(--color-border-default)] hover:bg-[var(--color-surface-elevated)] hover:text-[var(--color-text-primary)]"
-          >
-            <Wallet className="h-4 w-4" />
-            {isConnected ? 'Disconnect' : 'Connect Wallet'}
-          </Button>
+          <div className="flex flex-col gap-4">
+            {isClientConnected && address && (
+              <div className="flex cursor-default flex-col gap-1 rounded-[var(--radius-lg)] border border-[var(--color-border-subtle)] bg-[var(--color-surface-elevated)] p-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-[var(--color-text-secondary)]">
+                    {formatAddress(address)}
+                  </span>
+                  <button
+                    onClick={handleCopy}
+                    className="text-[var(--color-text-tertiary)] transition-colors hover:text-[var(--color-text-primary)]"
+                  >
+                    {copied ? (
+                      <Check className="h-4 w-4" />
+                    ) : (
+                      <Copy className="h-4 w-4 cursor-pointer" />
+                    )}
+                  </button>
+                </div>
+                {balanceData && (
+                  <div className="text-sm text-[var(--color-text-tertiary)]">
+                    {parseFloat(formatUnits(balanceData.value, balanceData.decimals)).toFixed(4)}{' '}
+                    {balanceData.symbol}
+                  </div>
+                )}
+              </div>
+            )}
+            <Button
+              onClick={handleConnect}
+              variant="metal"
+              className="w-full gap-2 border-[var(--color-border-subtle)] bg-[var(--color-surface-elevated)] text-[var(--color-text-primary)] shadow-[var(--shadow-sm)] hover:border-[var(--color-border-default)] hover:bg-[var(--color-surface-elevated)] hover:text-[var(--color-text-primary)]"
+            >
+              <Wallet className={cn('h-4 w-4', !isClientConnected && 'text-white')} />
+              {isClientConnected ? 'Disconnect' : 'Connect Wallet'}
+            </Button>
+          </div>
         </div>
       )}
 
@@ -89,7 +140,7 @@ export function Sidebar({ sections, activeIndex, setActiveIndex }: SidebarProps)
       <aside className="glass-soft fixed top-0 bottom-0 left-0 z-50 hidden w-[260px] flex-col border-r border-[var(--color-border-subtle)] bg-[var(--color-surface-primary)] md:flex">
         <div className="flex h-full flex-col p-6">
           {/* Logo Section */}
-          <div className="mb-10 flex items-center gap-3">
+          <div className="pt- mb-10 flex items-center gap-3 px-4">
             <img
               src="/transparent-light-bg-etherfi_logo-black-landscape-1.svg"
               alt="ether.fi logo"
@@ -124,20 +175,67 @@ export function Sidebar({ sections, activeIndex, setActiveIndex }: SidebarProps)
           </nav>
 
           {/* Actions Section */}
-          <div className="mt-auto md:w-full">
+          <div className="mt-auto flex w-full flex-col gap-4">
+            {isClientConnected && address && (
+              <div className="flex cursor-default flex-col gap-1 rounded-[var(--radius-lg)] border border-[var(--color-border-subtle)] bg-[var(--color-surface-elevated)] p-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-[var(--color-text-secondary)]">
+                    {formatAddress(address)}
+                  </span>
+                  <button
+                    onClick={handleCopy}
+                    className="text-[var(--color-text-tertiary)] transition-colors hover:text-[var(--color-text-primary)]"
+                  >
+                    {copied ? (
+                      <Check className="h-4 w-4" />
+                    ) : (
+                      <Copy className="h-4 w-4 cursor-pointer" />
+                    )}
+                  </button>
+                </div>
+                {balanceData && (
+                  <div className="text-sm text-[var(--color-text-tertiary)]">
+                    {parseFloat(formatUnits(balanceData.value, balanceData.decimals)).toFixed(4)}{' '}
+                    {balanceData.symbol}
+                  </div>
+                )}
+              </div>
+            )}
             <Button
               onClick={handleConnect}
-              variant={isConnected ? 'secondary' : 'metal'}
+              variant={isClientConnected ? 'secondary' : 'metal'}
               className="flex w-full items-center justify-center gap-2 p-3 shadow-[var(--shadow-md)]"
             >
-              <Wallet
-                className={cn('h-4 w-4', !isConnected && 'text-[var(--color-accent-gold)]')}
-              />
-              {isConnected ? 'Disconnect' : 'Log In'}
+              <Wallet className={cn('h-4 w-4', !isClientConnected && 'text-white')} />
+              {isClientConnected ? 'Disconnect' : 'Log In'}
             </Button>
           </div>
         </div>
       </aside>
+
+      {/* Wallet Selection Modal */}
+      <Modal
+        open={isWalletModalOpen}
+        onClose={() => setIsWalletModalOpen(false)}
+        title="Connect Wallet"
+        variant="primary"
+      >
+        <div className="mt-4 flex flex-col gap-3">
+          {connectors.map((connector) => (
+            <Button
+              key={connector.id}
+              onClick={() => {
+                connect({ connector })
+                setIsWalletModalOpen(false)
+              }}
+              variant="secondary"
+              className="flex w-full items-center justify-between p-4"
+            >
+              <span className="font-medium text-[var(--color-text-primary)]">{connector.name}</span>
+            </Button>
+          ))}
+        </div>
+      </Modal>
     </>
   )
 }
