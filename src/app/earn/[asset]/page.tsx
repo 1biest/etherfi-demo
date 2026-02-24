@@ -47,8 +47,8 @@ export default function EarnAssetPage({ params }: { params: Promise<{ asset: str
   const targetSymbol = decodeURIComponent(resolvedParams.asset)
   const asset = ratesData?.etherfi
     ? Object.values(ratesData.etherfi).find(
-      (a) => a.symbol === targetSymbol || a.name === targetSymbol,
-    )
+        (a) => a.symbol === targetSymbol || a.name === targetSymbol,
+      )
     : null
 
   return (

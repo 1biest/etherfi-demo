@@ -11,6 +11,7 @@
   --color-surface-elevated: #faf7f2;
   --color-surface-pressed: #e8e0d0;
   --color-surface-overlay: rgba(245, 240, 232, 0.92);
+  --color-surface-glass: rgba(245, 240, 232, 0.6);
   --color-surface-paper: #f2ece1;
   --color-surface-linen: #f0ead8;
   --color-surface-parchment: #ede7d9;
@@ -62,7 +63,8 @@
   --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
 
   /* ── Typography ── */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-sans, 'Inter'), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-heading, 'Space Grotesk'), ui-sans-serif, system-ui, sans-serif;
   --font-serif: 'Georgia', 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
@@ -78,6 +80,50 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+.dark {
+  --color-surface-primary: #0a0a0b;
+  --color-surface-secondary: #121214;
+  --color-surface-elevated: #16161a;
+  --color-surface-pressed: #1a1a1f;
+  --color-surface-overlay: rgba(10, 10, 11, 0.92);
+  --color-surface-glass: rgba(10, 10, 11, 0.6);
+  --color-surface-paper: #121214;
+  --color-surface-linen: #141416;
+  --color-surface-parchment: #161618;
+  --color-surface-ivory: #0f0f12;
+
+  --color-text-primary: #f8f9fa;
+  --color-text-secondary: #adb5bd;
+  --color-text-tertiary: #6c757d;
+  --color-text-muted: #495057;
+  --color-text-inverse: #0a0a0b;
+
+  --color-accent-gold: #6366f1;
+  --color-accent-gold-light: #818cf8;
+  --color-accent-gold-dark: #4f46e5;
+  --color-accent-gold-highlight: #a5b4fc;
+  --color-accent-gold-glow: rgba(99, 102, 241, 0.15);
+  --color-accent-gold-muted: rgba(99, 102, 241, 0.08);
+  --color-accent-gold-border: rgba(99, 102, 241, 0.25);
+
+  --color-border-default: rgba(255, 255, 255, 0.08);
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-border-strong: rgba(255, 255, 255, 0.15);
+  --color-border-gold: rgba(99, 102, 241, 0.3);
+
+  --shadow-inner-light: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-inner-pressed: inset 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 ::selection {
@@ -191,7 +237,7 @@ body {
 
 .glass-soft {
   position: relative;
-  background-color: rgba(245, 240, 232, 0.6);
+  background-color: var(--color-surface-glass);
   backdrop-filter: blur(12px);
   border: 1px solid var(--color-border-subtle);
   box-shadow: var(--shadow-sm);
@@ -278,6 +324,7 @@ body {
   100% {
     transform: rotate3d(1, -1, 0, -18deg) translateY(0px);
   }
+
   50% {
     transform: rotate3d(1, -1, 0, -16deg) translateY(-8px);
   }

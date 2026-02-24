@@ -3,7 +3,9 @@
 import { useAccount, useConnect, useDisconnect, useBalance } from 'wagmi'
 import { Button, Modal } from '@/design-system/components'
 import { Wallet, Menu, X, Copy, Check } from 'lucide-react'
+import { ThemeToggle } from '@/components/ThemeToggle'
 import { useState, useEffect } from 'react'
+import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import { formatUnits } from 'viem'
 
@@ -21,6 +23,7 @@ export function Sidebar({ sections, activeIndex, setActiveIndex }: SidebarProps)
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [copied, setCopied] = useState(false)
+  const { resolvedTheme } = useTheme()
 
   const { data: balanceData } = useBalance({
     address: address,
@@ -67,7 +70,7 @@ export function Sidebar({ sections, activeIndex, setActiveIndex }: SidebarProps)
           <img
             src="/transparent-light-bg-etherfi_logo-black-landscape-1.svg"
             alt="ether.fi logo"
-            className="h-8 object-contain drop-shadow-md"
+            className={`h-8 object-contain drop-shadow-md ${mounted && resolvedTheme === 'dark' ? 'brightness-0 invert' : ''}`}
           />
         </div>
         <button
@@ -124,10 +127,11 @@ export function Sidebar({ sections, activeIndex, setActiveIndex }: SidebarProps)
                 )}
               </div>
             )}
+            <ThemeToggle />
             <Button
               onClick={handleConnect}
               variant="metal"
-              className="w-full gap-2 border-[var(--color-border-subtle)] bg-[var(--color-surface-elevated)] text-[var(--color-text-primary)] shadow-[var(--shadow-sm)] hover:border-[var(--color-border-default)] hover:bg-[var(--color-surface-elevated)] hover:text-[var(--color-text-primary)]"
+              className="w-full gap-2 border-[var(--color-border-subtle)] bg-[var(--color-surface-elevated)] text-[var(--color-surface-ivory)] shadow-[var(--shadow-sm)] hover:border-[var(--color-border-default)] hover:bg-[var(--color-surface-elevated)] hover:text-[var(--color-surface-ivory)]"
             >
               <Wallet className={cn('h-4 w-4', !isClientConnected && 'text-white')} />
               {isClientConnected ? 'Disconnect' : 'Connect Wallet'}
@@ -144,7 +148,7 @@ export function Sidebar({ sections, activeIndex, setActiveIndex }: SidebarProps)
             <img
               src="/transparent-light-bg-etherfi_logo-black-landscape-1.svg"
               alt="ether.fi logo"
-              className="h-12 object-contain"
+              className={`h-12 object-contain ${mounted && resolvedTheme === 'dark' ? 'brightness-0 invert' : ''}`}
             />
           </div>
 
@@ -201,10 +205,11 @@ export function Sidebar({ sections, activeIndex, setActiveIndex }: SidebarProps)
                 )}
               </div>
             )}
+            <ThemeToggle />
             <Button
               onClick={handleConnect}
               variant={isClientConnected ? 'secondary' : 'metal'}
-              className="flex w-full items-center justify-center gap-2 p-3 shadow-[var(--shadow-md)]"
+              className="flex w-full items-center justify-center gap-2 p-3 text-[var(--color-surface-ivory)] shadow-[var(--shadow-md)]"
             >
               <Wallet className={cn('h-4 w-4', !isClientConnected && 'text-white')} />
               {isClientConnected ? 'Disconnect' : 'Log In'}
